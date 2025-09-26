@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sales Performance · Power BI · Álvaro Martínez</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+<main class="max-w-4xl mx-auto p-6 space-y-6">
+  <a href="./index.html" class="text-sm text-indigo-700 underline">← All dashboards</a>
+  <header class="space-y-2">
+    <h1 class="text-3xl font-extrabold">Sales Performance</h1>
+    <p class="text-slate-600">Executive dashboard tracking Revenue, Margin and YoY growth with drill-down by product and geography.</p>
+    <img src="../assets/powerbi/sales_performance_cover.png" alt="Sales Performance cover" class="rounded-2xl shadow">
+  </header>
+
+  <section class="bg-white rounded-2xl shadow p-6 space-y-4">
+    <h2 class="font-bold">Highlights</h2>
+    <ul class="list-disc pl-5 text-sm space-y-1">
+      <li>KPIs: Total Sales, Margin, YoY %, Top N products & geos.</li>
+      <li>Model: Star schema (<em>FactSales</em>, <em>DimDate</em>, <em>DimProduct</em>, <em>DimGeo</em>).</li>
+      <li>DAX: <code>Total Sales</code>, <code>Margin</code>, <code>YoY%</code>, <code>TopN</code>.</li>
+      <li>Interactions: slicers, drillthrough and bookmarks.</li>
+    </ul>
+  </section>
+
+  <section class="bg-white rounded-2xl shadow p-6">
+    <h3 class="font-bold mb-2">Assets</h3>
+    <ul class="list-disc pl-5 text-sm space-y-1">
+      <li><a class="text-indigo-700 underline" href="../assets/powerbi/sales_performance.pbix">Download PBIX</a> (if present)</li>
+      <!--
+      <li>Interactive embed (Publish to web):</li>
+      <iframe title="Sales Performance" width="100%" height="600" src="PASTE_PUBLISH_TO_WEB_IFRAME_URL" frameborder="0" allowFullScreen="true"></iframe>
+      -->
+    </ul>
+    <p class="text-xs text-slate-500 mt-2">Note: Publish to web exposes data publicly. Use demo/synthetic data only.</p>
+  </section>
+</main>
+</body>
+</html>
