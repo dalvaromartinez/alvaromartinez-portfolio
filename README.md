@@ -12,7 +12,7 @@ Here you’ll find a curated selection of my most relevant projects, developed d
 Predictive model to estimate match outcomes using engineered features.  
 - Stack: Python, pandas, scikit-learn, XGBoost, Amazon SageMaker  
 - Includes: Feature importance analysis, heatmaps, evaluation metrics.  
-- ![Heatmap Example](./assets/img/lol_heatmap.png)
+
 
 ---
 
@@ -20,7 +20,7 @@ Predictive model to estimate match outcomes using engineered features.
 Binary classifier to detect churn risk and improve customer retention.  
 - Stack: Python, pandas, scikit-learn  
 - Includes: Data preprocessing, feature selection, class imbalance handling.  
-- ![ROC Curve](./assets/img/churn_roc.png)
+
 
 ---
 
@@ -28,7 +28,7 @@ Binary classifier to detect churn risk and improve customer retention.
 Image classification with CNNs to distinguish between healthy vs tumor MRI scans.  
 - Stack: Python, TensorFlow/Keras, NumPy  
 - Includes: Data augmentation, training logs, accuracy curves.  
-- ![MRI Sample](./assets/img/mri_sample.png)
+
 
 ---
 
@@ -36,7 +36,7 @@ Image classification with CNNs to distinguish between healthy vs tumor MRI scans
 End-to-end ML pipeline on a structured dataset.  
 - Stack: Python, pandas, scikit-learn  
 - Includes: EDA, preprocessing, model training, evaluation.  
-- ![Predictions vs Actuals](./assets/img/tabular_scatter.png)
+
 
 ---
 
