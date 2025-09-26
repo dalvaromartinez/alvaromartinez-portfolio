@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>League of Legends Outcome Predictor (UNIR) · Álvaro Martínez Portfolio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+<main class="max-w-4xl mx-auto p-6 space-y-6">
+  <a href="../index.html" class="text-sm text-indigo-700 underline">← Back to Projects</a>
+  <header class="space-y-1">
+    <h1 class="text-3xl font-extrabold">League of Legends Outcome Predictor (UNIR)</h1>
+    <p class="text-slate-600">Predictive model to estimate match outcomes using engineered features from match statistics. Trained and evaluated in Amazon SageMaker with scikit-learn/XGBoost.</p>
+  </header>
+  <section class="bg-white rounded-2xl shadow p-6">
+    <h2 class="font-bold mb-2">What I built</h2>
+    <ul class="list-disc pl-5 text-sm space-y-1">
+      <li>EDA on match history (objectives, economy, damage, map control).</li>
+<li>Feature engineering (gold diff per minute, vision control, objective pacing).</li>
+<li>Modeling with XGBoost / Logistic Regression; cross-validation + ROC-AUC.</li>
+<li>Explainability with feature importance / SHAP-style analysis.</li>
+    </ul>
+  </section>
+  <section class="grid md:grid-cols-2 gap-4">
+    <div class="bg-white rounded-2xl shadow p-6">
+      <h3 class="font-bold mb-2">Tech stack</h3>
+      <div class="flex flex-wrap gap-2 text-xs">
+        <span class="px-2 py-1 text-xs rounded-full bg-indigo-100 text-indigo-800">Python</span>
+<span class="px-2 py-1 text-xs rounded-full bg-indigo-100 text-indigo-800">pandas</span>
+<span class="px-2 py-1 text-xs rounded-full bg-indigo-100 text-indigo-800">scikit-learn</span>
+<span class="px-2 py-1 text-xs rounded-full bg-indigo-100 text-indigo-800">XGBoost</span>
+<span class="px-2 py-1 text-xs rounded-full bg-indigo-100 text-indigo-800">SageMaker</span>
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl shadow p-6">
+      <h3 class="font-bold mb-2">Assets</h3>
+      <ul class="list-disc pl-5 text-sm space-y-1">
+        <li><a class="text-indigo-700 underline" href="../assets/downloads/entrega3_Alvaro_Martinez.ipynb" target="_blank" rel="noopener">Notebook (download .ipynb)</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+</body>
+</html>
