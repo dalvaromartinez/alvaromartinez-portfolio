@@ -2,6 +2,10 @@
 
 Portfolio focused on machine learning, natural language processing and data analytics projects with a strong emphasis on real-world problem solving and business impact.
 
+## 🌐 Live Portfolio
+
+👉 https://dalvaromartinez.github.io/alvaromartinez-portfolio/
+
 ---
 
 ## 🚀 Featured Projects
@@ -53,11 +57,6 @@ Python · Pandas · Scikit-learn · LightGBM · NLP · Power BI · Microsoft Fab
 
 ---
 
-## 🌐 Live Portfolio
-
-👉 https://dalvaromartinez.github.io/alvaromartinez-portfolio/
-
----
 
 ## 📫 Contact
 
