@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>FarmaStock AI · RAG Agent with Gemini · Álvaro Martínez Portfolio</title>
+<meta name="description" content="FarmaStock AI is a RAG assistant built with Gemini, ChromaDB, LangGraph and Streamlit for inventory optimization in community pharmacy."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css"/>
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="../index.html"><strong>Álvaro Martínez</strong><span>Data Science · Machine Learning · AI Portfolio</span></a>
+    <nav class="nav-links"><a href="../index.html#work" class="active">Projects</a><a href="../index.html#analytics">Analytics</a><a href="mailto:alvarod_soria@hotmail.com" class="button">Contact</a></nav>
+  </div>
+</header>
+<main>
+
+<section class="project-hero">
+  <div class="container">
+    <a href="../index.html#work" class="eyebrow">← Back to featured projects</a>
+    <div class="project-layout" style="margin-top:22px;">
+      <div class="panel project-block">
+        <div class="meta">Generative AI · RAG · Pharmacy inventory</div>
+        <h1>FarmaStock AI — Expert RAG Agent for Pharmacy Stock Optimization</h1>
+        <p style="font-size:1.06rem; margin:0 0 18px;">FarmaStock AI is a generative AI assistant designed to answer questions about inventory optimization in community pharmacy. It combines a custom Markdown knowledge base, Gemini Embeddings, ChromaDB, LangGraph, Gemini as LLM and conversational memory.</p>
+        <div class="tech-list"><span>Python</span><span>Gemini</span><span>RAG</span><span>ChromaDB</span><span>LangGraph</span><span>Streamlit</span></div>
+        <div class="callout" style="margin-top:24px;">The agent is intentionally scoped to logistics and inventory analysis. It does not provide clinical advice, recommend medicines or use real sensitive data.</div>
+        <div class="project-actions">
+          <a class="button primary" href="https://github.com/dalvaromartinez/farmastock-ai-rag-agent" target="_blank" rel="noopener">GitHub repository</a>
+          <a class="button" href="#architecture">View architecture</a>
+        </div>
+      </div>
+      <div class="panel project-block"><div class="cover"><img src="../assets/covers/farmastock_ai_cover.png" alt="FarmaStock AI RAG agent cover"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section"><div class="container split">
+  <div class="panel project-block">
+    <h2>What this project shows</h2>
+    <ul>
+      <li>A domain-specific GenAI assistant built around a controlled pharmacy inventory knowledge base.</li>
+      <li>Retrieval-Augmented Generation using Gemini Embeddings and a persistent ChromaDB vector store.</li>
+      <li>A LangGraph agent with a clear retrieval-generation flow and conversational memory.</li>
+      <li>A Streamlit demo interface that exposes answers and retrieved sources without changing the core architecture.</li>
+    </ul>
+  </div>
+  <div class="panel project-block">
+    <h2>Domain boundaries</h2>
+    <ul>
+      <li>No clinical advice or treatment recommendation.</li>
+      <li>No real patient, provider, sales or pharmacy-identifiable data.</li>
+      <li>No automatic purchase decisions.</li>
+      <li>If the retrieved context is insufficient, the assistant must say so clearly.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="architecture" class="section"><div class="container">
+  <div class="panel project-block">
+    <h2>Architecture</h2>
+    <p>The system follows an end-to-end RAG pipeline. The knowledge base is written in Markdown, enriched with YAML metadata, split into sections and chunks, embedded with Gemini and persisted in ChromaDB. At inference time, the retriever selects relevant chunks, LangGraph orchestrates the flow and Gemini generates the final answer.</p>
+    <div class="subgrid" style="margin-top:18px;">
+      <div class="micro-panel"><strong>1. Knowledge base</strong><p>Four custom Markdown documents covering stock fundamentals, replenishment metrics, ABC/XYZ classification and stock movement interpretation.</p></div>
+      <div class="micro-panel"><strong>2. Vector retrieval</strong><p>Gemini Embeddings transform chunks into vectors and ChromaDB retrieves the most relevant context using similarity search with k=4.</p></div>
+      <div class="micro-panel"><strong>3. Agent layer</strong><p>LangGraph coordinates <code>retrieve_context → generate_answer</code>, while MemorySaver keeps conversational context by thread.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="section"><div class="container split">
+  <div class="panel project-block">
+    <h2>Validated demo questions</h2>
+    <ul>
+      <li>What is the difference between stock rotation and stock coverage?</li>
+      <li>If a product has 24 units and sells 3 units per day, what is the approximate coverage?</li>
+      <li>What is the difference between an AX and an AZ product?</li>
+      <li>If previous stock was 5 and posterior stock is 12 after a manual modification, how should it be interpreted?</li>
+      <li>What medicine would you recommend for a cold? The agent rejects this as out of domain.</li>
+    </ul>
+  </div>
+  <div class="panel project-block">
+    <h2>Implementation highlights</h2>
+    <ul>
+      <li>117 indexed chunks after excluding low-information question sections from retrieval.</li>
+      <li>Persistent ChromaDB collection: <code>farmastock_ai_docs</code>.</li>
+      <li>LLM: <code>gemini-2.5-flash</code> with low temperature for stable answers.</li>
+      <li>Streamlit interface with suggested questions, retrieved-source expanders and a clear safety banner.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="section"><div class="container split">
+  <div class="panel project-block">
+    <h2>Why it matters</h2>
+    <p>This project connects a pharmacy background with modern GenAI engineering. Instead of building a generic chatbot, the assistant is constrained to a narrow operational domain and uses a curated knowledge base to produce safer, more traceable answers.</p>
+  </div>
+  <div class="panel project-block">
+    <h2>Next improvements</h2>
+    <p>Future extensions could include a synthetic product dataset, a formal RAG evaluation set, a domain-classification node before retrieval and more integrated source citations inside the final response.</p>
+    <div class="asset-links"><a class="button primary" href="https://github.com/dalvaromartinez/farmastock-ai-rag-agent" target="_blank" rel="noopener">View repository</a><a class="button" href="../index.html#work">More projects</a></div>
+  </div>
+</div></section>
+
+</main>
+<footer class="footer"><div class="container footer-grid"><div><strong>Álvaro Martínez</strong><div class="muted" style="margin-top:8px;">Data Science · Machine Learning · AI Portfolio</div><div class="muted" style="margin-top:8px;">© 2026 Álvaro Martínez</div></div><div class="nav-links"><a href="https://github.com/dalvaromartinez" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/alvaromartinezromera/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:alvarod_soria@hotmail.com">Email</a></div></div></footer>
+</body></html>
