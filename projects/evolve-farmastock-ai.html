@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FarmaStock AI · Evolve Academic Project</title>
+  <meta name="description" content="FarmaStock AI is an academic Generative AI project developed during the Master in AI at Evolve. It combines RAG, LangGraph, Gemini, ChromaDB and Streamlit to support pharmacy stock analysis." />
+
+  <style>
+    :root {
+      --bg-main: #F7F4EF;
+      --bg-secondary: #EDE7DC;
+      --card: #FFFCF7;
+      --text-main: #171717;
+      --text-secondary: #6F6A63;
+      --accent: #B89B5E;
+      --border: #D8D0C3;
+      --dark: #111111;
+      --white: #FFFFFF;
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --shadow-soft: 0 24px 70px rgba(23, 23, 23, 0.08);
+      --shadow-card: 0 12px 35px rgba(23, 23, 23, 0.06);
+      --max-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(247, 244, 239, 0.82);
+      border-bottom: 1px solid rgba(216, 208, 195, 0.65);
+    }
+
+    .nav-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      letter-spacing: -0.02em;
+    }
+
+    .brand strong {
+      font-size: 1rem;
+      font-weight: 760;
+    }
+
+    .brand span {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .hero {
+      padding: 88px 0 56px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 42px;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 252, 247, 0.72);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(184, 155, 94, 0.16);
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6.7rem);
+      line-height: 0.92;
+      letter-spacing: -0.075em;
+      font-weight: 820;
+      margin-bottom: 28px;
+    }
+
+    .hero-subtitle {
+      max-width: 690px;
+      color: var(--text-secondary);
+      font-size: clamp(1.05rem, 2vw, 1.32rem);
+      line-height: 1.65;
+      margin-bottom: 34px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-weight: 650;
+      font-size: 0.92rem;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .btn-primary {
+      background: var(--text-main);
+      color: var(--bg-main);
+      border-color: var(--text-main);
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--text-main);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 690px;
+    }
+
+    .meta-card {
+      padding: 16px;
+      background: rgba(255, 252, 247, 0.82);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .meta-card span {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      margin-bottom: 5px;
+    }
+
+    .meta-card strong {
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+
+    .hero-panel {
+      background: var(--dark);
+      color: var(--bg-main);
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      min-height: 520px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      right: -120px;
+      top: -120px;
+      background: radial-gradient(circle, rgba(184,155,94,0.42), rgba(184,155,94,0));
+    }
+
+    .panel-content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 44px;
+    }
+
+    .panel-label {
+      font-size: 0.82rem;
+      color: rgba(247,244,239,0.68);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .architecture-flow {
+      display: grid;
+      gap: 12px;
+    }
+
+    .flow-item {
+      padding: 16px 18px;
+      border: 1px solid rgba(247,244,239,0.16);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .flow-item small {
+      display: block;
+      color: rgba(247,244,239,0.52);
+      font-size: 0.72rem;
+      margin-bottom: 4px;
+    }
+
+    .flow-item strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .panel-bottom h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -0.06em;
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    .panel-bottom p {
+      color: rgba(247,244,239,0.68);
+      font-size: 0.96rem;
+    }
+
+    section {
+      padding: 58px 0;
+    }
+
+    .section-header {
+      max-width: 780px;
+      margin-bottom: 28px;
+    }
+
+    .section-kicker {
+      color: var(--accent);
+      font-weight: 760;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: clamp(2.15rem, 5vw, 4rem);
+      letter-spacing: -0.065em;
+      line-height: 0.98;
+      margin-bottom: 18px;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 720px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .card h3 {
+      font-size: 1.18rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    .card p, .card li {
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+    }
+
+    .card ul {
+      margin-top: 12px;
+      padding-left: 18px;
+    }
+
+    .stack-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-main);
+      color: var(--text-secondary);
+      font-size: 0.84rem;
+      font-weight: 620;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      counter-reset: step;
+    }
+
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 18px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 252, 247, 0.72);
+    }
+
+    .step::before {
+      content: counter(step, decimal-leading-zero);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--text-main);
+      color: var(--bg-main);
+      font-size: 0.78rem;
+      font-weight: 780;
+    }
+
+    .step h3 {
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+
+    .step p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .code-block {
+      background: var(--dark);
+      color: var(--bg-main);
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      overflow: auto;
+      box-shadow: var(--shadow-soft);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    .checklist {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: var(--card);
+      box-shadow: var(--shadow-card);
+    }
+
+    .check-row {
+      display: grid;
+      grid-template-columns: 1.3fr 0.6fr 1fr;
+      gap: 16px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+    }
+
+    .check-row:last-child {
+      border-bottom: none;
+    }
+
+    .check-head {
+      background: var(--text-main);
+      color: var(--bg-main);
+      font-weight: 760;
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .status {
+      display: inline-flex;
+      width: fit-content;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 760;
+      border: 1px solid var(--border);
+      background: var(--bg-main);
+      color: var(--text-secondary);
+    }
+
+    .status.ready {
+      color: var(--text-main);
+      border-color: rgba(184,155,94,0.55);
+      background: rgba(184,155,94,0.14);
+    }
+
+    .status.pending {
+      color: var(--text-secondary);
+    }
+
+    .link-muted {
+      color: var(--text-secondary);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .highlight {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+    }
+
+    .highlight p {
+      color: var(--text-secondary);
+      font-size: 1.08rem;
+      max-width: 850px;
+    }
+
+    .footer {
+      padding: 48px 0 64px;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 52px;
+      }
+
+      .hero-panel {
+        min-height: auto;
+      }
+
+      .hero-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .check-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .check-head {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="../index.html" aria-label="Back to portfolio">
+          <strong>Álvaro Martínez</strong>
+          <span>Data Science · Generative AI · Pharmacy Analytics</span>
+        </a>
+        <div class="nav-links">
+          <a href="#overview">Overview</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#results">Results</a>
+          <a href="#checklist">Checklist</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <header class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">Evolve academic publication · Generative AI project</div>
+            <h1>FarmaStock AI</h1>
+            <p class="hero-subtitle">
+              A domain-specific RAG assistant for pharmacy stock optimization, combining LangGraph workflows,
+              ChromaDB retrieval, Gemini generation and a Streamlit interface to support inventory analysis and decision-making.
+            </p>
+
+            <div class="button-row">
+              <a class="btn btn-primary" href="https://github.com/dalvaromartinez/farmastock-ai-rag-agent" target="_blank" rel="noreferrer">View GitHub repo</a>
+              <a class="btn btn-secondary" href="#checklist">Publication checklist</a>
+              <a class="btn btn-secondary" href="REPLACE_WITH_DEVTO_URL" target="_blank" rel="noreferrer">Read Dev.to article</a>
+              <a class="btn btn-secondary" href="REPLACE_WITH_DEMO_URL" target="_blank" rel="noreferrer">Open demo</a>
+            </div>
+
+            <div class="hero-meta">
+              <div class="meta-card">
+                <span>Project type</span>
+                <strong>Academic Generative AI project</strong>
+              </div>
+              <div class="meta-card">
+                <span>Domain</span>
+                <strong>Community pharmacy stock analysis</strong>
+              </div>
+              <div class="meta-card">
+                <span>Focus</span>
+                <strong>RAG · Agentic workflow · Streamlit demo</strong>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-panel" aria-label="Project architecture summary">
+            <div class="panel-content">
+              <div>
+                <div class="panel-label">Core workflow</div>
+                <div class="architecture-flow" style="margin-top: 22px;">
+                  <div class="flow-item"><small>01</small><strong>User question</strong></div>
+                  <div class="flow-item"><small>02</small><strong>LangGraph orchestration</strong></div>
+                  <div class="flow-item"><small>03</small><strong>ChromaDB context retrieval</strong></div>
+                  <div class="flow-item"><small>04</small><strong>Gemini grounded answer</strong></div>
+                  <div class="flow-item"><small>05</small><strong>Streamlit response interface</strong></div>
+                </div>
+              </div>
+              <div class="panel-bottom">
+                <h2>From notebook to usable AI assistant.</h2>
+                <p>
+                  The project turns technical pharmacy stock logic into an accessible assistant capable of explaining processes,
+                  retrieving relevant context and supporting analytical reasoning.
+                </p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </header>
+
+      <section id="overview">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-kicker">01 · Project overview</div>
+            <h2>Problem, context and objective.</h2>
+            <p>
+              FarmaStock AI explores how Generative AI can be applied to a realistic pharmacy stock scenario,
+              where sales movements, purchases, manual corrections and inventory evolution need to be interpreted clearly.
+            </p>
+          </div>
+
+          <div class="grid-3">
+            <article class="card">
+              <h3>The problem</h3>
+              <p>
+                Pharmacy stock information is often distributed across exports, operational movements and manual adjustments.
+                Understanding what happened, why it happened and how it affects stock decisions can be time-consuming.
+              </p>
+            </article>
+            <article class="card">
+              <h3>The approach</h3>
+              <p>
+                The project uses a Retrieval-Augmented Generation architecture to answer questions with project-specific context,
+                avoiding generic responses and grounding the assistant in documented logic.
+              </p>
+            </article>
+            <article class="card">
+              <h3>The outcome</h3>
+              <p>
+                A functional Streamlit demo that lets users ask questions about the project, the stock logic, the analytical pipeline
+                and the technical decisions behind the solution.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="highlight">
+            <div class="section-kicker">Academic context</div>
+            <h2>Developed during the Master in AI at Evolve.</h2>
+            <p>
+              This landing page is part of the academic publication package for Evolve. It complements the GitHub repository,
+              technical README, Dev.to article and LinkedIn publication, presenting the project as a visible and professional piece of work.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-kicker">02 · Technical architecture</div>
+            <h2>RAG pipeline with agentic orchestration.</h2>
+            <p>
+              The assistant is structured as a modular workflow where retrieval, reasoning and answer generation are separated
+              to make the system easier to understand, test and extend.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3>Technical stack</h3>
+              <p>The project combines data, AI and product-oriented tools.</p>
+              <div class="stack-list">
+                <span class="tag">Python</span>
+                <span class="tag">Streamlit</span>
+                <span class="tag">LangGraph</span>
+                <span class="tag">Gemini</span>
+                <span class="tag">ChromaDB</span>
+                <span class="tag">RAG</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Markdown</span>
+                <span class="tag">GitHub</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Repository structure</h3>
+              <p>The repo is organized to separate application code, documentation, notebooks and reusable logic.</p>
+              <pre class="code-block" style="margin-top: 16px;"><code>farmastock-ai-rag-agent/
+├── app/
+├── data/
+├── docs/
+├── notebooks/
+├── src/
+├── requirements.txt
+└── README.md</code></pre>
+            </div>
+          </div>
+
+          <div class="timeline" style="margin-top: 22px;">
+            <div class="step">
+              <div>
+                <h3>User question</h3>
+                <p>The user asks a question through the Streamlit interface about stock, process, architecture or project logic.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div>
+                <h3>Workflow orchestration</h3>
+                <p>LangGraph defines the route of the interaction and separates the main stages of the assistant.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div>
+                <h3>Context retrieval</h3>
+                <p>ChromaDB retrieves the most relevant project context to ground the response.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div>
+                <h3>Answer generation</h3>
+                <p>Gemini generates a final answer using the retrieved context and the system instructions defined for the assistant.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="results">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-kicker">03 · Results and learning</div>
+            <h2>What the project demonstrates.</h2>
+            <p>
+              Instead of presenting only a notebook, the project is packaged as a professional AI product prototype with a usable interface,
+              documented decisions and a clear publication strategy.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <article class="card">
+              <h3>Main results</h3>
+              <ul>
+                <li>Functional RAG assistant for a specific pharmacy stock domain.</li>
+                <li>Streamlit interface to demonstrate the project interactively.</li>
+                <li>LangGraph-based workflow to make the assistant easier to explain.</li>
+                <li>Vector retrieval layer with ChromaDB.</li>
+                <li>Professional GitHub publication with README and project structure.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Critical reflection</h3>
+              <ul>
+                <li>The next step would be connecting the assistant to real pharmacy exports.</li>
+                <li>Evaluation could be improved with a structured test set of domain questions.</li>
+                <li>Traceability could be expanded by showing retrieved chunks in the UI.</li>
+                <li>The analytical layer could evolve into forecasting and reorder recommendations.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-kicker">04 · Evolve publication checklist</div>
+            <h2>Publication status.</h2>
+            <p>
+              This checklist follows the Evolve publication guide: GitHub repository, README, Dev.to article, additional platform presence and LinkedIn communication.
+            </p>
+          </div>
+
+          <div class="checklist">
+            <div class="check-row check-head">
+              <div>Requirement</div>
+              <div>Status</div>
+              <div>Link</div>
+            </div>
+            <div class="check-row">
+              <div>Public GitHub repository</div>
+              <div><span class="status ready">Ready</span></div>
+              <div><a class="link-muted" href="https://github.com/dalvaromartinez/farmastock-ai-rag-agent" target="_blank" rel="noreferrer">Open repository</a></div>
+            </div>
+            <div class="check-row">
+              <div>Complete README with technologies, structure, execution and results</div>
+              <div><span class="status pending">To review</span></div>
+              <div><a class="link-muted" href="https://github.com/dalvaromartinez/farmastock-ai-rag-agent#readme" target="_blank" rel="noreferrer">Open README</a></div>
+            </div>
+            <div class="check-row">
+              <div>Technical article on Dev.to under Evolve</div>
+              <div><span class="status pending">Pending</span></div>
+              <div><a class="link-muted" href="REPLACE_WITH_DEVTO_URL" target="_blank" rel="noreferrer">Add Dev.to link</a></div>
+            </div>
+            <div class="check-row">
+              <div>LinkedIn Article or LinkedIn post</div>
+              <div><span class="status pending">Pending</span></div>
+              <div><a class="link-muted" href="REPLACE_WITH_LINKEDIN_URL" target="_blank" rel="noreferrer">Add LinkedIn link</a></div>
+            </div>
+            <div class="check-row">
+              <div>Medium or Hashnode publication</div>
+              <div><span class="status pending">Optional</span></div>
+              <div><a class="link-muted" href="REPLACE_WITH_MEDIUM_OR_HASHNODE_URL" target="_blank" rel="noreferrer">Add optional article</a></div>
+            </div>
+            <div class="check-row">
+              <div>Project landing page</div>
+              <div><span class="status ready">Ready</span></div>
+              <div><a class="link-muted" href="#">Current page</a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="section-header">
+            <div class="section-kicker">05 · More selected academic work</div>
+            <h2>Complementary projects.</h2>
+            <p>
+              In addition to FarmaStock AI, these two academic projects reinforce the technical profile with applied Machine Learning and Deep Learning work.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <article class="card">
+              <h3>Machine Learning Project</h3>
+              <p>
+                Applied Machine Learning project focused on data preprocessing, feature engineering, model training, evaluation metrics and business-oriented interpretation of results.
+              </p>
+              <div class="stack-list">
+                <span class="tag">Python</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Scikit-learn</span>
+                <span class="tag">Model evaluation</span>
+                <span class="tag">Explainability</span>
+              </div>
+              <div class="button-row" style="margin-top: 20px; margin-bottom: 0;">
+                <a class="btn btn-secondary" href="../index.html">View in main portfolio</a>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Deep Learning Project</h3>
+              <p>
+                Deep Learning project focused on neural network development, model experimentation, performance analysis and clear communication of technical decisions.
+              </p>
+              <div class="stack-list">
+                <span class="tag">Python</span>
+                <span class="tag">Deep Learning</span>
+                <span class="tag">Neural networks</span>
+                <span class="tag">TensorFlow / Keras</span>
+                <span class="tag">Experimentation</span>
+              </div>
+              <div class="button-row" style="margin-top: 20px; margin-bottom: 0;">
+                <a class="btn btn-secondary" href="../index.html">View in main portfolio</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="card" style="display: grid; gap: 18px;">
+            <div class="section-kicker">Final note</div>
+            <h2 style="margin-bottom: 0;">Academic project developed during the Master in AI at Evolve.</h2>
+            <p>
+              FarmaStock AI is not intended to replace a pharmacy management system. It is an academic prototype designed to demonstrate
+              how Generative AI, retrieval systems and product-oriented interfaces can be applied to a realistic stock optimization context.
+            </p>
+            <div class="button-row" style="margin-bottom: 0;">
+              <a class="btn btn-primary" href="https://github.com/dalvaromartinez/farmastock-ai-rag-agent" target="_blank" rel="noreferrer">Go to GitHub</a>
+              <a class="btn btn-secondary" href="../index.html">Back to main portfolio</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>© Álvaro Martínez · FarmaStock AI</div>
+        <div>Data Science · Generative AI · Pharmacy Analytics</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
