@@ -47,7 +47,7 @@ The project transforms operational data exported from **Nixfarma** into stock me
 
 ---
 
-### FarmaStock AI — Generative AI RAG Agent
+### FarmaStock Knowledge Assistant
 
 Expert assistant for **community pharmacy stock optimization**, built with Gemini, RAG, ChromaDB, LangGraph and Streamlit.
 
@@ -169,7 +169,7 @@ Git · GitHub · Jupyter Notebook · VS Code
 Main project repositories:
 
 - FarmaStock AI — Predictive Pharmacy Stock Optimization: https://github.com/dalvaromartinez/pharmacy-stock-optimization
-- FarmaStock AI — Generative AI RAG Agent: https://github.com/dalvaromartinez/farmastock-ai-rag-agent
+- FarmaStock Knowledge Assistant: https://github.com/dalvaromartinez/farmastock-ai-rag-agent
 - Portfolio repository: https://github.com/dalvaromartinez/alvaromartinez-portfolio
 
 ---
