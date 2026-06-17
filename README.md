@@ -20,6 +20,33 @@ This portfolio brings together end-to-end projects covering:
 
 ## Featured Projects
 
+### FarmaStock AI — Predictive Pharmacy Stock Optimization
+
+End-to-end data science project for **community pharmacy stock optimization**, developed as a Final Master's Thesis and evaluated with **9.5/10**.
+
+The project transforms operational data exported from **Nixfarma** into stock metrics, demand forecasts and explainable replenishment recommendations.
+
+**Key features:**
+
+- Reproducible raw data ingestion.
+- Cleaning and standardization of Nixfarma exports.
+- Reconciliation of movements, sales and formal purchases.
+- Stock reconstruction using previous stock, final stock and delta stock.
+- Daily product-level demand and stock metrics.
+- Demand forecasting with baseline validation and supervised challenger models.
+- Forecast evaluation using MAE, RMSE, WAPE, sMAPE and bias.
+- Rule-based replenishment recommendations with explainable actions.
+- Streamlit app for operational exploration and product-level detail.
+- Public repository without real pharmacy data for confidentiality reasons.
+
+**Stack:** Python · Pandas · Forecasting · Streamlit · Data Modeling · EDA · Scikit-learn
+
+**Repository:** https://github.com/dalvaromartinez/pharmacy-stock-optimization
+
+**Case study:** https://dalvaromartinez.github.io/alvaromartinez-portfolio/projects/farmastock-ai-stock-optimization.html
+
+---
+
 ### FarmaStock AI — Generative AI RAG Agent
 
 Expert assistant for **community pharmacy stock optimization**, built with Gemini, RAG, ChromaDB, LangGraph and Streamlit.
@@ -141,7 +168,8 @@ Git · GitHub · Jupyter Notebook · VS Code
 
 Main project repositories:
 
-- FarmaStock AI: https://github.com/dalvaromartinez/farmastock-ai-rag-agent
+- FarmaStock AI — Predictive Pharmacy Stock Optimization: https://github.com/dalvaromartinez/pharmacy-stock-optimization
+- FarmaStock AI — Generative AI RAG Agent: https://github.com/dalvaromartinez/farmastock-ai-rag-agent
 - Portfolio repository: https://github.com/dalvaromartinez/alvaromartinez-portfolio
 
 ---

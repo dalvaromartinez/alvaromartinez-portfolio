@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>FarmaStock AI · Predictive Pharmacy Stock Optimization · Álvaro Martínez Portfolio</title>
+<meta name="description" content="End-to-end data science project for pharmacy stock optimization using Nixfarma data, forecasting, replenishment recommendations and Streamlit."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css"/>
+</head>
+
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="../index.html"><strong>Álvaro Martínez</strong><span>Data Science · Machine Learning · AI Portfolio</span></a>
+    <nav class="nav-links">
+      <a href="../index.html#work" class="active">Projects</a>
+      <a href="../index.html#analytics">Analytics</a>
+      <a href="mailto:alvarod_soria@hotmail.com" class="button">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="project-hero">
+  <div class="container">
+    <a href="../index.html#work" class="eyebrow">← Back to featured projects</a>
+
+    <div class="project-layout" style="margin-top:22px;">
+      <div class="panel project-block">
+        <div class="meta">Data Science · Forecasting · Pharmacy operations</div>
+        <h1>FarmaStock AI — Predictive Pharmacy Stock Optimization</h1>
+        <p style="font-size:1.06rem; margin:0 0 18px;">
+          FarmaStock AI is an end-to-end data science project that transforms operational data exported from Nixfarma into stock metrics, demand forecasts and explainable replenishment recommendations for community pharmacy.
+        </p>
+
+        <div class="tech-list">
+          <span>Python</span>
+          <span>Pandas</span>
+          <span>Forecasting</span>
+          <span>Streamlit</span>
+          <span>Data Modeling</span>
+          <span>EDA</span>
+        </div>
+
+        <div class="callout" style="margin-top:24px;">
+          Final Master's Thesis project evaluated with <strong>9.5/10</strong>. Real pharmacy data was used during development, but no sensitive or identifiable data is included in the public repository.
+        </div>
+
+        <div class="project-actions">
+          <a class="button primary" href="https://github.com/dalvaromartinez/pharmacy-stock-optimization" target="_blank" rel="noopener">GitHub repository</a>
+          <a class="button" href="#pipeline">View pipeline</a>
+        </div>
+      </div>
+
+      <div class="panel project-block">
+        <div class="cover">
+          <img src="../assets/covers/farmastock_ai_cover.png" alt="FarmaStock AI stock optimization cover">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="panel project-block">
+      <h2>Business problem</h2>
+      <p>
+        Community pharmacies need to balance two opposite risks: stockouts, which can reduce service quality and cause lost sales, and overstock, which immobilizes capital, occupies space and increases expiry risk.
+      </p>
+      <p>
+        The goal of this project is to support replenishment decisions using operational data, demand behaviour, stock coverage and explainable rules.
+      </p>
+    </div>
+
+    <div class="panel project-block">
+      <h2>What this project shows</h2>
+      <ul>
+        <li>End-to-end data pipeline from raw Nixfarma exports to processed analytical tables.</li>
+        <li>Stock reconstruction using movement history and stock deltas.</li>
+        <li>Demand analysis, rotation, coverage and stockout/overstock risk indicators.</li>
+        <li>Demand forecasting with baseline validation and supervised model comparison.</li>
+        <li>Rule-based replenishment recommendations with explainable reasons.</li>
+        <li>Streamlit app for operational exploration and product-level detail.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="pipeline" class="section">
+  <div class="container">
+    <div class="panel project-block">
+      <h2>End-to-end pipeline</h2>
+      <p>
+        The project is structured as a reproducible notebook pipeline. Each step produces validated intermediate or processed outputs used by the following stage.
+      </p>
+
+      <div class="subgrid" style="margin-top:18px;">
+        <div class="micro-panel">
+          <strong>01 · Raw ingestion</strong>
+          <p>Inventory of raw files, robust reading and source traceability for sales, movements and formal purchases.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>02 · Cleaning</strong>
+          <p>Column standardization, type conversion, controlled parsing and validation of Nixfarma exports.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>03 · Reconciliation</strong>
+          <p>Operational stock reconstruction using movement chronology, previous stock, final stock and delta stock.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>04 · Data modeling</strong>
+          <p>Creation of analytical tables such as product daily metrics, product dimension and enriched facts.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>05 · Stock metrics EDA</strong>
+          <p>Demand, rotation, stock coverage, replenishment behaviour, stockout risk and overstock review signals.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>06 · Forecasting</strong>
+          <p>Demand forecast using a weighted recent-demand baseline, backtesting and supervised challenger models.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>07 · Recommendations</strong>
+          <p>Rule-based replenishment recommendations combining forecast, stock, coverage, safety stock and review flags.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>08 · App review</strong>
+          <p>Preparation of app KPIs, filters, labels and Streamlit-oriented review outputs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="panel project-block">
+      <h2>Data sources</h2>
+      <p>The project uses three Nixfarma data families with different roles:</p>
+      <ul>
+        <li><strong>Movements:</strong> main source for stock, operational demand, entries, exits and adjustments.</li>
+        <li><strong>Sales:</strong> commercial enrichment for PVP, sales type, operators, entities and amounts.</li>
+        <li><strong>Formal purchases:</strong> documentary and supplier-related contrast, not automatic stock input.</li>
+      </ul>
+    </div>
+
+    <div class="panel project-block">
+      <h2>Reconciliation logic</h2>
+      <p>
+        The project does not assume that all sources match. Stock and demand are reconstructed primarily from movements.
+      </p>
+      <p>
+        In movement data, the stock column is interpreted as final stock after each operation:
+      </p>
+      <ul>
+        <li><code>stock_prev</code>: previous movement stock for the same product.</li>
+        <li><code>stock_after</code>: stock after the current movement.</li>
+        <li><code>delta_stock</code>: net stock variation between movements.</li>
+      </ul>
+      <p>
+        This is especially important for manual stock modifications, recounts and stock adjustments where original units may not represent real stock movement.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="panel project-block">
+      <h2>Forecasting approach</h2>
+      <p>
+        The forecasting layer estimates expected operational demand for 7, 14 and 30 days. The main model for version 1 is an explainable weighted recent-demand baseline.
+      </p>
+      <ul>
+        <li>Demand series are converted into continuous daily product-level data.</li>
+        <li>Products are classified by forecastability and confidence level.</li>
+        <li>The baseline is backtested before being accepted as the final forecast version.</li>
+        <li>Supervised models are trained as challengers, not automatic replacements.</li>
+        <li>Metrics include MAE, RMSE, sMAPE, WAPE and bias.</li>
+      </ul>
+    </div>
+
+    <div class="panel project-block">
+      <h2>Replenishment recommendations</h2>
+      <p>
+        Recommendations are generated using a rule-based and interpretable policy. The system converts forecast and stock context into operational actions.
+      </p>
+      <ul>
+        <li><code>recommended_order_qty</code>: initial suggested order quantity.</li>
+        <li><code>replenishment_action</code>: action category for each product.</li>
+        <li><code>replenishment_urgency_level</code>: urgency based on risk and quantity.</li>
+        <li><code>replenishment_reason</code>: explanation of the recommendation.</li>
+        <li>Manual review is prioritized when the data does not support automatic ordering.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="panel project-block">
+      <h2>Streamlit app</h2>
+      <p>
+        The project includes a Streamlit app designed to explore stock recommendations visually and operationally.
+      </p>
+
+      <div class="subgrid" style="margin-top:18px;">
+        <div class="micro-panel">
+          <strong>Executive overview</strong>
+          <p>Global KPIs, recommendation volume, product status and action distribution.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>Replenishment priorities</strong>
+          <p>Products to order or review, with quantity, urgency and explanation.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>Risk and coverage</strong>
+          <p>Stockout risk, estimated coverage and forecast context.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>Overstock review</strong>
+          <p>Products where no order is recommended due to overstock or low demand signals.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>Product detail</strong>
+          <p>Individual product card with stock, forecast, recommendation and decision rationale.</p>
+        </div>
+        <div class="micro-panel">
+          <strong>Operational assistant</strong>
+          <p>Guided interpretation of recommendations and supplier campaign scenarios.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:24px;">
+        The public repository includes code, notebooks, documentation and screenshots. Real processed pharmacy data is not included for confidentiality reasons.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="panel project-block">
+      <h2>Final outputs</h2>
+      <ul>
+        <li><code>fact_stock_movements_clean</code></li>
+        <li><code>fact_sales_enriched</code></li>
+        <li><code>fact_formal_purchases</code></li>
+        <li><code>dim_products</code></li>
+        <li><code>product_daily_metrics</code></li>
+        <li><code>product_stock_metrics</code></li>
+        <li><code>product_demand_forecast</code></li>
+        <li><code>product_replenishment_recommendations</code></li>
+      </ul>
+    </div>
+
+    <div class="panel project-block">
+      <h2>Why it matters</h2>
+      <p>
+        This project connects pharmacy domain knowledge with data engineering, forecasting and decision-support design.
+      </p>
+      <p>
+        Instead of focusing only on model complexity, the project prioritizes traceability, validation, operational interpretation and business usefulness.
+      </p>
+      <p>
+        The final result is a structured data product that can support better stock decisions in a pharmacy context.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="panel project-block">
+      <h2>Limitations</h2>
+      <ul>
+        <li>Real data cannot be published due to confidentiality.</li>
+        <li>Lead times and safety stock are rule-based initial assumptions.</li>
+        <li>The app requires locally generated processed data to run with real outputs.</li>
+        <li>Supplier constraints, package multiples, expiry dates and economic margins are not yet included.</li>
+        <li>Recommendations are decision-support outputs, not blind purchase orders.</li>
+      </ul>
+    </div>
+
+    <div class="panel project-block">
+      <h2>Related project</h2>
+      <p>
+        This stock optimization pipeline is complemented by a separate generative AI project:
+      </p>
+      <p>
+        <strong>FarmaStock AI — Expert RAG Agent</strong>, an assistant for answering pharmacy stock optimization questions using Gemini, ChromaDB, LangGraph and Streamlit.
+      </p>
+      <div class="asset-links">
+        <a class="button primary" href="https://github.com/dalvaromartinez/pharmacy-stock-optimization" target="_blank" rel="noopener">View repository</a>
+        <a class="button" href="./farmastock-ai-rag-agent.html">View RAG project</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <strong>Álvaro Martínez</strong>
+      <div class="muted" style="margin-top:8px;">Data Science · Machine Learning · AI Portfolio</div>
+      <div class="muted" style="margin-top:8px;">© 2026 Álvaro Martínez</div>
+    </div>
+    <div class="nav-links">
+      <a href="https://github.com/dalvaromartinez" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/alvaromartinezromera/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:alvarod_soria@hotmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
