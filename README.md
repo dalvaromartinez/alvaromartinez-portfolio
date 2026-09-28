@@ -57,14 +57,16 @@ The system answers questions about inventory rotation, stock coverage, reorder c
 
 - Custom Markdown knowledge base.
 - Gemini Embeddings and persistent ChromaDB vector store.
-- RAG pipeline with source-grounded answers.
-- LangGraph agent with conversational memory.
-- Streamlit interface for demo and interaction.
+- RAG pipeline with retrieved-source traceability.
+- Deterministic LangGraph workflow with temporary conversational memory.
+- Streamlit interface with retrieved-source visibility.
 - Explicit safety limits: no clinical advice, no medication recommendations and no real sensitive data.
 
 **Stack:** Python · Gemini · Gemini Embeddings · ChromaDB · LangGraph · Streamlit · RAG
 
-**Repository:** https://github.com/dalvaromartinez/farmastock-ai-rag-agent
+**Repository:** https://github.com/dalvaromartinez/farmastock-rag-assistant
+
+**Case study:** https://dalvaromartinez.github.io/alvaromartinez-portfolio/projects/farmastock-knowledge-assistant.html
 
 ---
 
@@ -169,7 +171,7 @@ Git · GitHub · Jupyter Notebook · VS Code
 Main project repositories:
 
 - FarmaStock AI — Predictive Pharmacy Stock Optimization: https://github.com/dalvaromartinez/pharmacy-stock-optimization
-- FarmaStock Knowledge Assistant: https://github.com/dalvaromartinez/farmastock-ai-rag-agent
+- FarmaStock Knowledge Assistant: https://github.com/dalvaromartinez/farmastock-rag-assistant
 - Portfolio repository: https://github.com/dalvaromartinez/alvaromartinez-portfolio
 
 ---
