@@ -1,4 +1,4 @@
-# Álvaro Martínez — Data Science & AI Portfolio
+# Álvaro Martínez — Data / AI Portfolio
 
 ## Live Portfolio
 
@@ -6,9 +6,19 @@
 
 ---
 
-Portfolio focused on **Data Science, Generative AI, Machine Learning, NLP and Business Analytics**, with an emphasis on practical projects, clear technical storytelling and real-world decision support.
+## About
 
-This portfolio brings together end-to-end projects covering:
+My background combines software development with Data Science and Artificial Intelligence.
+
+I build practical projects that connect data, AI and analytical methods with business and operational decision-making.
+
+Some source datasets are not included due to licensing, access or privacy constraints.
+
+---
+
+## Portfolio Scope
+
+This portfolio focuses on **Data Science, Generative AI, Machine Learning, NLP and Business Analytics** and brings together projects covering:
 
 - Generative AI assistants and RAG systems.
 - Machine learning for customer analytics.
@@ -18,7 +28,7 @@ This portfolio brings together end-to-end projects covering:
 
 ---
 
-## Featured Projects
+## Data / AI Projects
 
 ### FarmaStock AI — Predictive Pharmacy Stock Optimization
 
@@ -125,16 +135,17 @@ Power BI dashboard analyzing player performance, clan war behavior and strategic
 
 ### Fabric Analytics Project
 
-End-to-end analytics workflow using Microsoft Fabric and Power BI.
+Business intelligence project focused on Power BI reporting and data modeling.
+
+Showcases an end-to-end BI workflow, highlighting how data can be transformed into structured, decision-ready insights.
 
 **Focus areas:**
 
-- Data ingestion.
-- Lakehouse / Warehouse analytics workflow.
-- Data modeling.
-- Power BI reporting.
+- Data preparation and modeling.
+- Interactive Power BI reporting.
+- Structured analytical workflow.
 
-**Stack:** Microsoft Fabric · Power BI · Data Engineering · Business Intelligence
+**Stack:** Power BI · Data Modeling · Business Intelligence
 
 ---
 
@@ -158,7 +169,7 @@ Text preprocessing · Topic Modeling · Sentiment Analysis · BERTopic
 
 **Business Intelligence**
 
-Power BI · Microsoft Fabric · Data Modeling · Dashboards
+Power BI · Data Modeling · Dashboards
 
 **Development**
 
@@ -173,14 +184,6 @@ Main project repositories:
 - FarmaStock AI — Predictive Pharmacy Stock Optimization: https://github.com/dalvaromartinez/pharmacy-stock-optimization
 - FarmaStock Knowledge Assistant: https://github.com/dalvaromartinez/farmastock-rag-assistant
 - Portfolio repository: https://github.com/dalvaromartinez/alvaromartinez-portfolio
-
----
-
-## About
-
-I combine a background in pharmacy with training in Data Science, Artificial Intelligence and analytics. My work focuses on building practical data products that connect technical implementation with business or operational decision-making.
-
-This portfolio is designed to show not only final outputs, but also the reasoning, methodology and technical decisions behind each project.
 
 ---
 
